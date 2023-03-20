@@ -1,31 +1,31 @@
 const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
-// Aggregate function to get the number of students overall
-const headCount = async () =>
-  User.aggregate()
-    .count('userCount')
-    .then((numberOfUsers) => numberOfUsers);
+// // Aggregate function to get the number of students overall
+// const headCount = async () =>
+//   User.aggregate()
+//     .count('userCount')
+//     .then((numberOfUsers) => numberOfUsers);
 
-// Aggregate function for getting the overall grade using $avg
-const grade = async (userId) =>
-  Student.aggregate([
-    // only include the given student by using $match
-    { $match: { _id: ObjectId(userId) } },
-    {
-      $unwind: '$assignments',
-    },
-    {
-      $group: {
-        _id: ObjectId(userId),
-        overallGrade: { $avg: '$assignments.score' },
-      },
-    },
-  ]);
+// // Aggregate function for getting the overall grade using $avg
+// const grade = async (userId) =>
+//   Student.aggregate([
+//     // only include the given student by using $match
+//     { $match: { _id: ObjectId(userId) } },
+//     {
+//       $unwind: '$assignments',
+//     },
+//     {
+//       $group: {
+//         _id: ObjectId(userId),
+//         overallGrade: { $avg: '$assignments.score' },
+//       },
+//     },
+//   ]);
 
 module.exports = {
   // Get all users
-  getUsers(req, res) {
+  getAllUsers(req, res) {
     User.find()
       .then(async (users) => {
         const userObj = {
@@ -47,9 +47,9 @@ module.exports = {
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
           : res.json({
-              user,
-              grade: await grade(req.params.userId),
-            })
+            user,
+            post: await post(req.params.userId),
+          })
       )
       .catch((err) => {
         console.log(err);
@@ -69,23 +69,24 @@ module.exports = {
         !user
           ? res.status(404).json({ message: 'No such user exists' })
           : Thought.findOneAndUpdate(
-              { users: req.params.userId },
-              { $pull: { user: req.params.userId } },
-              { new: true }
-            )
+            { users: req.params.userId },
+            { $pull: { user: req.params.userId } },
+            { new: true }
+          )
       )
       .then((thought) =>
         !thought
           ? res.status(404).json({
-              message: 'User deleted, but no thoughts found',
-            })
+            message: 'User deleted, but no thoughts found',
+          })
           : res.json({ message: 'User successfully deleted' })
       )
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
       });
-  },};
+  },
+};
 
 //   // Add an assignment to a user
 //   addAssignment(req, res) {
