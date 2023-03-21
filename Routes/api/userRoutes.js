@@ -20,6 +20,6 @@ router.route('/:userId').get(getSingleUser).delete(deleteUser).post(updateUser);
 router.route('/:userId/reactions').post(addreactions);
 
 // /api/students/:studentId/assignments/:assignmentId
-// router.route('/:studentId/assignments/:assignmentId').delete(removeAssignment);
+router.route('/:studentId/assignments/:assignmentId').delete(removeAssignment);
 
 module.exports = router;
