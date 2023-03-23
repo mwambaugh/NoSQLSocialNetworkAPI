@@ -14,12 +14,11 @@ const {
 router.route('/').get(getAllUsers).post(createUser);
 
 //from mini project: /api/students/:studentId
-router.route('/:userId').get(getSingleUser).delete(deleteUser).post(updateUser);
+router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser);
 
-//from mini project:// /api/students/:studentId/assignments
-router.route('/:userId/reactions').post(addreactions);
+// router.route('/:userId').get(getSingleUser).post(addreactions);
 
 // /api/students/:studentId/assignments/:assignmentId
-router.route('/:studentId/assignments/:assignmentId').delete(removeAssignment);
+router.route("/:userId/friends/:friendId").post(createFriend).delete(deleteFriend);
 
 module.exports = router;
