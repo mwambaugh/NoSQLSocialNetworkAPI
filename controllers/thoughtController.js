@@ -70,7 +70,6 @@ module.exports = {
 // Add a reaction to a user
 createReaction(req, res) {
   console.log('You are adding a reaction');
-  console.log(req.body);
   Thought.findOneAndUpdate(
     { _id: req.params.thoughtId },
     { $addToSet: { reaction: req.body } },
@@ -81,7 +80,7 @@ createReaction(req, res) {
         ? res
           .status(404)
           .json({ message: 'No user found with that ID :(' })
-        : res.json(user)
+        : res.json(thoughtData)
     )
     .catch((err) => {
       console.log(err);
@@ -93,18 +92,21 @@ deleteReaction(req, res) {
   Thought.findOneAndUpdate(
     { _id: req.params.thoughtId },
     { $pull: { reaction: { reactionId: req.params.reactionId } } },
-    { runValidators: true, new: true }
+    {new: true }
   )
     .then((thoughtData) =>
       !thoughtData
-        ? res
-          .status(404)
-          .json({ message: 'No thought found with that ID :(' })
+        ? res.status(404).json({ message: 'No thought found with that ID :(' })
         : res.json(thoughtData)
     )
-    .catch((err) => res.status(500).json(err));
+   .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 },
-  };
+};
+
+
 
   // module.exports = thoughtController;
 
