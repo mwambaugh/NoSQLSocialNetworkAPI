@@ -19,7 +19,6 @@ router.route('/').get(getAllThoughts).post(createThought);
 // /api/courses/:courseId //from mini project: 
 router
   .route('/:thoughtId')
-  .get(getAllThoughts)
   .get(getSingleThought)
   .put(updateThought)
   .delete(deleteThought);
