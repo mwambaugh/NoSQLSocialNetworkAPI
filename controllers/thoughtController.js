@@ -9,7 +9,7 @@ module.exports = {
   },
   // Get a thought NEEDS WORK 
   getSingleThought(req, res) {
-    Thought.findOne({ _id: req.params.thoughtId })
+    Thought.findbyId({ _id: req.params.thoughtId })
       .select('-__v')
       // .sort({ _id: 1 })
       .then((thoughtData) =>
@@ -46,11 +46,12 @@ module.exports = {
       .then((thoughtData) =>
         !thoughtData
           ? res.status(404).json({ message: 'No thought with that ID' })
-          : Thought.deleteMany({ _id: { $in: thought.user } })
+          : Thought.deleteMany({ _id: { $in: thoughtData.user } })
       )
       .then(() => res.json({ message: 'Thought and user deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
+
   // Update a thought
   updateThought(req, res) {
     Thought.findOneAndUpdate(

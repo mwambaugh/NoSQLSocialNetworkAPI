@@ -18,14 +18,14 @@ module.exports = {
   // Get a single user
   getSingleUser(req, res) {
     User.findById({ _id: req.params.userId })
-      .select('-__v')
+      .select("-__v")
       .populate("friends")
       .populate("thoughts")
       .then((userData) =>
         !userData
-        ? res.status(404).json({ message: "No user with that ID" })
-        : res.json(userData)
-    )
+          ? res.status(404).json({ message: "No user with that ID" })
+          : res.json(userData)
+      )
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
@@ -83,10 +83,20 @@ module.exports = {
       });
   },
 
+  // deleteUser(req, res) {
+  //   User.findOneAndDelete({ _id: req.params.userId })
+  //     .then((userData) =>
+  //       !userData
+  //         ? res.status(404).json({ message: "No user with that ID" })
+  //         : Thought.deleteMany({ _id: { $in: userData.thoughts } })
+  //     )
+  //     .then(() => res.json({ message: "User and thoughts deleted!" }))
+  //     .catch((err) => res.status(500).json(err));
+  // },
+
 // Add a reaction to a user
 createFriend(req, res) {
   console.log('You are adding a friend');
-  console.log(req.params.friendId);
   User.findOneAndUpdate(
     { _id: req.params.userId },
     { $addToSet: { friend: req.params.friendId } },
