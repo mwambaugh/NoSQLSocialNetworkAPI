@@ -16,8 +16,6 @@ router.route('/').get(getAllUsers).post(createUser);
 //from mini project: /api/students/:studentId
 router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser);
 
-// router.route('/:userId').get(getSingleUser).post(addreactions);
-
 // /api/students/:studentId/assignments/:assignmentId
 router.route("/:userId/friends/:friendId").post(createFriend).delete(deleteFriend);
 
