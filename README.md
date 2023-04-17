@@ -11,8 +11,6 @@
 
 [Links](#Links)
 
-[Visuals](#visuals)
-
 [Contributing](#contributing)
 
 [Questions](#questions)
@@ -29,20 +27,14 @@
 I built an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list.
 
 ## Instalation 
-You’ll use Express.js for routing, a MongoDB database, and the Mongoose ODM.
+You’ll use Express.js for routing, a MongoDB database, and the Mongoose ODM. You'll need to install node dependencies and 'npm run start' and test routes using Insomnia. 
  
 ## Links  
 [Walkthrough Link]()s
 
-## Visuals 
-[Screenshots of]( )
-[Screenshot of ]()
-[Screenshot of ]()
-[Screenshot of ]()
-
 
 ## Contributing 
-This assignment was worked on by student, M.C. Wambaugh, with the support of her TA's during office hours and meeting regularly with a tutor, and her classrom peers. The student also used universial resources such as  YouTube.com, shields.io/, and our class repo examples. Many thanks to those who continue to support learning in the technological community.
+This assignment was worked on by student, M.C. Wambaugh, with the support of her TA's during office hours and meeting regularly with her tutor Matthew, and her classrom peers. The student also used universial resources such as  YouTube.com, shields.io/, and our class repo examples. Many thanks to those who continue to support learning in the technological community.
 
 ## Questions 
 Please direct questions to Marta Wambaugh at marwambaugh@gmail.com and https://github.com/mwambaugh 
