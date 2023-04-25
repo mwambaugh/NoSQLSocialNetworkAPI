@@ -26,7 +26,7 @@ router
 router.route("/:thoughtId/reactions").post(createReaction);
 
 // router.route("/:thougthId/reactionId").delete(deleteReaction);
-router.route("/:thougthId/reactions/:reactionId").delete(deleteReaction);
+router.route("/:thoughtId/reactions/:reactionId").delete(deleteReaction);
 
 http: router.route;
 

@@ -55,7 +55,7 @@ module.exports = {
           ? res.status(404).json({ message: 'No thought with that ID' })
           : Thought.deleteMany({ _id: { $in: thoughtData.user } })
       )
-      .then(() => res.json({ message: 'Thought and user deleted!' }))
+      .then(() => res.json({ message: 'Thought deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
 
@@ -79,7 +79,7 @@ createReaction(req, res) {
   console.log('You are adding a reaction');
   Thought.findOneAndUpdate(
     { _id: req.params.thoughtId },
-    { $addToSet: { reaction: req.body } },
+    { $addToSet: { reactions: req.body } },
     { runValidators: true, new: true }
   )
     .then((thoughtData) =>
@@ -98,7 +98,7 @@ createReaction(req, res) {
 deleteReaction(req, res) {
   Thought.findOneAndUpdate(
     { _id: req.params.thoughtId },
-    { $pull: { reaction: { reactionId: req.params.reactionId } } },
+    { $pull: { reactions: { reactionId: req.params.reactionId } } },
     {new: true }
   )
     .then((thoughtData) =>
@@ -113,44 +113,18 @@ deleteReaction(req, res) {
 },
 };
 
+// deleteReaction(req, res) {
+//   Thought.findOneAndDelete({ _id: req.params.reactionId })
+//     .then((thoughtData) =>
+//       !thoughtData
+//         ? res.status(404).json({ message: 'No reaction with that ID' })
+//         : Thought.deleteMany({ _id: { $in: thoughtData.user } })
+//     )
+//     .then(() => res.json({ message: 'Reaction deleted!' }))
+//     .catch((err) => res.status(500).json(err));
+// },
+// };
+
 
 
   // module.exports = thoughtController;
-
-
-  //FROM MINI PROJECT
-//   // Add an assignment to a student
-//   addAssignment(req, res) {
-//     console.log('You are adding an assignment');
-//     console.log(req.body);
-//     Student.findOneAndUpdate(
-//       { _id: req.params.studentId },
-//       { $addToSet: { assignments: req.body } },
-//       { runValidators: true, new: true }
-//     )
-//       .then((student) =>
-//         !student
-//           ? res
-//               .status(404)
-//               .json({ message: 'No student found with that ID :(' })
-//           : res.json(student)
-//       )
-//       .catch((err) => res.status(500).json(err));
-//   },
-//   // Remove assignment from a student
-//   removeAssignment(req, res) {
-//     Student.findOneAndUpdate(
-//       { _id: req.params.studentId },
-//       { $pull: { assignment: { assignmentId: req.params.assignmentId } } },
-//       { runValidators: true, new: true }
-//     )
-//       .then((student) =>
-//         !student
-//           ? res
-//               .status(404)
-//               .json({ message: 'No student found with that ID :(' })
-//           : res.json(student)
-//       )
-//       .catch((err) => res.status(500).json(err));
-//   },
-// };
