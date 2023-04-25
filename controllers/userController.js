@@ -99,7 +99,7 @@ createFriend(req, res) {
   console.log('You are adding a friend');
   User.findOneAndUpdate(
     { _id: req.params.userId },
-    { $addToSet: { friend: req.params.friendId } },
+    { $addToSet: { friends: req.params.friendId } },
     { new: true }
   )
     .then((userData) =>
@@ -115,10 +115,10 @@ createFriend(req, res) {
 deleteFriend(req, res) {
   User.findOneAndUpdate(
     { _id: req.params.userId },
-    { $pull: { friend: { friendId: req.params.friedId } } },
+    { $pull: { friends:req.params.friendId } } ,
     { new: true }
   )
-    .then((UserData) =>
+    .then((userData) =>
       !userData
         ? res
           .status(404)

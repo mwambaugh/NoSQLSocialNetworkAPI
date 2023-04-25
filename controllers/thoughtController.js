@@ -7,18 +7,7 @@ module.exports = {
       .then((thoughtData) => res.json(thoughtData))
       .catch((err) => res.status(500).json(err));
   },
-  // Get a thought NEEDS WORK 
-  getSingleThought(req, res) {
-    Thought.findbyId({ _id: req.params.thoughtId })
-      .select('-__v')
-      // .sort({ _id: 1 })
-      .then((thoughtData) =>
-        !thoughtData
-          ? res.status(404).json({ message: 'No thought with that ID' })
-          : res.json(thoughtData)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
+
   // Create a thought NEEDS WORK 
   createThought(req, res) {
     Thought.create(req.body)
@@ -40,6 +29,24 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+
+ // Get a thought NEEDS WORK 
+ getSingleThought(req, res) {
+  console.log("fetching a thought!");
+  Thought.findbyId({ _id: req.params.thoughtId })
+    .select('-__v')
+    // .sort({ _id: 1 })
+    .then((thoughtData) =>
+      !thoughtData
+        ? res.status(404).json({ message: 'No thought with that ID' })
+        : res.json(thoughtData)
+    )
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+},
+
   // Delete thought NEEDS WORK 
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
